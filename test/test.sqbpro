@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="test.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached><db schema="test" path="C:\Users\Elbert\Documents\AppDev\sample\NT_application\Act2\ex3\bio\New folder\about me\prototype_code\pos\test\test.db"/></attached><window><main_tabs open="browser pragmas query structure" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1711"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/><expanded_item id="4" parent="1"/></tab_structure><tab_browse><table title="Customer" custom_title="0" dock_id="1" table="4,8:mainCustomer"/><dock_state state="000000ff00000000fd00000001000000020000024900000213fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000000002490000011800ffffff000002490000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Customer" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="0" mode="0"/></sort><column_widths><column index="1" value="82"/><column index="2" value="41"/><column index="3" value="39"/><column index="4" value="122"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE Customer (
+  Customer_ID INT PRIMARY KEY,
+  Name VARCHAR(50) NOT NULL,
+  Email VARCHAR(50) UNIQUE,
+  Customer_password VARCHAR(50)
+);
+
+CREATE TABLE Product (
+  Product_ID INT PRIMARY KEY,
+  Name VARCHAR(50) NOT NULL,
+  Price DECIMAL(10,2) NOT NULL,
+  Category_ID INT,
+  Stock_Quantity VARCHAR(20),
+  Product_Total INT,
+  Description VARCHAR(20),
+  FOREIGN KEY (Category_ID) REFERENCES Product_Category(Category_ID)
+);
+
+CREATE TABLE Product_Category (
+  Category_ID INT PRIMARY KEY,
+  Category_Name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Orders (
+  Order_ID INT PRIMARY KEY,
+  Customer_ID INT,
+  Product_ID INT,
+  Order_Date DATE,
+  FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
+  FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
+);
+
+CREATE TABLE Payment (
+  Payment_ID INT PRIMARY KEY,
+  Order_ID INT,
+  Amount DECIMAL(10,2) NOT NULL,
+  Payment_Method VARCHAR(50) NOT NULL,
+  Total INT,
+  FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID)
+);
+
+CREATE TABLE Delivery (
+  Delivery_ID INT PRIMARY KEY,
+  Order_ID INT,
+  Quantity INT,
+  Address char,
+  Date DATETIME,
+  FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID)
+);
+
+CREATE TABLE Product_Order (
+  Product_Order_ID INT PRIMARY KEY,
+  Product_ID INT,
+  Quantity INT,
+  FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
+);</sql><current_tab id="0"/></tab_sql></sqlb_project>
